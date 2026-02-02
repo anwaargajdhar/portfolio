@@ -188,6 +188,69 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* ---------------- ABOUT ---------------- */}
+      <section id="about" className="py-24">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
+        >
+          {/* Left Content */}
+          <motion.div variants={fadeUp} className="space-y-6">
+            <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+              👋 About Me
+            </span>
+
+            <h2 className="text-4xl font-bold leading-tight">
+              Passionate Full-Stack Developer
+              <br />
+              Turning Ideas Into Scalable Products
+            </h2>
+
+            <p className="text-muted-foreground leading-relaxed text-lg">
+              I’m <strong>Anwaar Gajdhar</strong>, a MERN stack developer dedicated to building
+              secure, scalable, and high-performance web applications. I thrive across the entire
+              stack — from creating clean and responsive user interfaces to designing robust backend
+              APIs and database architectures.
+            </p>
+
+            <p className="text-muted-foreground leading-relaxed text-lg">
+              With hands-on experience in real-world projects, I specialize in modern JavaScript
+              frameworks, cloud-ready deployments, and Web3 integrations. My goal is to deliver
+              impactful digital solutions that solve real business problems.
+            </p>
+
+            <div className="flex gap-4 pt-4">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition"
+              >
+                More About Me <ArrowRight size={18} />
+              </Link>
+
+              <a
+                href="/resume.pdf"
+                download
+                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition"
+              >
+                View Resume
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Right Visual */}
+          <motion.div
+            variants={fadeUp}
+            className="hidden md:flex h-96 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border items-center justify-center"
+          >
+            <span className="text-8xl">👨‍💻</span>
+          </motion.div>
+        </motion.div>
+      </section>
+
+
       {/* ---------------- PROJECTS ---------------- */}
       <section id="projects" className="py-24 bg-secondary/5">
         <div className="max-w-7xl mx-auto px-4">
