@@ -302,7 +302,7 @@ export default function About() {
             I'm always interested in hearing about new projects and opportunities. Let's connect and build something amazing together!
           </p>
           <a
-            href="mailto:hello@example.com"
+            href="mailto:anwarsmailid.com"
             className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
           >
             Get In Touch
