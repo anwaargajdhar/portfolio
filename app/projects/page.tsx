@@ -1,7 +1,8 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, ExternalLink, Github } from 'lucide-react'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
 import {
   motion,
   useScroll,
@@ -22,7 +23,6 @@ const stagger = {
 
 /* ---------------- Page ---------------- */
 export default function ProjectsPage() {
-  /* Scroll progress */
   const { scrollYProgress } = useScroll()
 
   const scaleX = useSpring(scrollYProgress, {
@@ -35,72 +35,72 @@ export default function ProjectsPage() {
   const projectsData = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
+      title: 'Shodhavali – Academic Research Platform',
       description:
-        'A full-featured e-commerce platform built with the MERN stack, featuring real-time inventory management and Stripe payments.',
+        'A research-focused platform for publishing, discovering, and managing academic journals.',
       longDescription:
-        'Includes authentication, role-based access, product filtering, cart, orders, admin dashboard, and scalable backend services.',
-      technologies: ['React', 'Next.js', 'Node.js', 'MongoDB', 'Stripe', 'Redux'],
-      liveUrl: '#',
-      githubUrl: '#',
+        'Shodhavali is a comprehensive academic research platform designed for researchers and institutions.',
+      technologies: ['React', 'Next.js', 'Node.js', 'MongoDB'],
+      image: '/project/shodhavali.png',
+      liveUrl: 'https://www.shodhavali.com/',
       highlights: [
-        'Real-time inventory',
-        'Stripe payments',
-        'Admin dashboard',
-        'Email notifications',
+        'Academic journal management',
+        'Research paper submissions',
+        'Advanced search',
+        'Responsive UI',
       ],
     },
     {
       id: 2,
-      title: 'Web3 DeFi Dashboard',
+      title: 'Aroha Solutions – Corporate Website',
       description:
-        'A DeFi dashboard interacting with Ethereum smart contracts and tracking crypto portfolios.',
+        'A professional corporate website showcasing IT services and solutions.',
       longDescription:
-        'Supports wallet connection, token prices, swaps, and portfolio analytics using Web3 technologies.',
-      technologies: ['React', 'Web3.js', 'Solidity', 'Ethereum'],
-      liveUrl: '#',
-      githubUrl: '#',
+        'Modern, fast, and SEO-optimized corporate website with clean UI.',
+      technologies: ['React', 'Next.js', 'Tailwind CSS'],
+      image: '/project/aroha.png',
+      liveUrl: 'https://arohasolution.com/',
       highlights: [
-        'MetaMask integration',
-        'Live token prices',
-        'Smart contract calls',
-        'Gas optimization',
+        'Corporate branding',
+        'Service-focused layout',
+        'SEO optimized',
+        'Fast performance',
       ],
     },
     {
       id: 3,
-      title: 'Real-Time Collaboration Tool',
+      title: 'HomeNTor – Home Services Platform',
       description:
-        'Google Docs–like collaboration tool with real-time syncing and presence tracking.',
+        'A platform for discovering and booking trusted home services.',
       longDescription:
-        'Uses WebSockets for live editing, version history, comments, and conflict resolution.',
-      technologies: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'Redis'],
-      liveUrl: '#',
-      githubUrl: '#',
-      highlights: ['Live editing', 'Cursor tracking', 'Version history', 'Comments'],
+        'Users can browse services, view provider profiles, and request assistance easily.',
+      technologies: ['React', 'Next.js', 'CSS'],
+      image: '/project/homentor.png',
+      liveUrl: 'https://homentor.in/',
+      highlights: [
+        'Service listings',
+        'Booking flow',
+        'Mobile-first UI',
+        'Clean UX',
+      ],
     },
   ]
 
   return (
     <>
-      {/* Scroll Progress Bar */}
+      {/* Scroll Progress */}
       <motion.div
         style={{ scaleX }}
         className="fixed top-0 left-0 right-0 h-[3px] bg-primary origin-left z-50"
       />
 
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="min-h-screen bg-background text-foreground"
-      >
+      <motion.main className="min-h-screen bg-background text-foreground">
         {/* Header */}
         <nav className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80"
+              className="inline-flex items-center gap-2 text-primary"
             >
               <ArrowLeft size={18} />
               Back to Home
@@ -111,24 +111,12 @@ export default function ProjectsPage() {
         {/* Hero */}
         <section className="py-28">
           <div className="max-w-7xl mx-auto px-4">
-            <motion.h1
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="text-5xl md:text-6xl font-bold mb-6"
-            >
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
               My <span className="text-primary">Projects</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-              className="text-xl text-muted-foreground max-w-3xl"
-            >
-              Production-ready projects showcasing full-stack, Web3,
-              and real-time systems.
-            </motion.p>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl">
+              Production-ready real-world projects.
+            </p>
           </div>
         </section>
 
@@ -140,37 +128,53 @@ export default function ProjectsPage() {
                 key={project.id}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
                 className={`grid md:grid-cols-2 gap-14 items-center ${
-                  idx % 2 === 1
-                    ? 'md:[&>*:first-child]:order-2'
-                    : ''
+                  idx % 2 ? 'md:[&>*:first-child]:order-2' : ''
                 }`}
               >
-                {/* Image */}
+                {/* Image with Hover Overlay */}
                 <motion.div
                   style={{ y: yParallax }}
                   whileHover={{ scale: 1.04 }}
                   transition={{ type: 'spring', stiffness: 120 }}
-                  className="h-80 rounded-2xl border border-border bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center"
+                  className="relative h-80 rounded-2xl overflow-hidden border border-border shadow-lg group"
                 >
-                  <span className="text-7xl">🚀</span>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                  />
+
+                  {/* Hover Overlay */}
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center"
+                  >
+                    <span className="text-white font-semibold text-lg flex items-center gap-2">
+                      <ExternalLink size={18} />
+                      View Project
+                    </span>
+                  </a>
                 </motion.div>
 
                 {/* Content */}
                 <div className="space-y-6">
                   <h2 className="text-3xl font-bold">{project.title}</h2>
-
-                  <p className="text-muted-foreground">{project.description}</p>
+                  <p className="text-muted-foreground">
+                    {project.description}
+                  </p>
                   <p className="text-muted-foreground">
                     {project.longDescription}
                   </p>
 
                   <ul className="grid grid-cols-2 gap-2">
                     {project.highlights.map((h) => (
-                      <li key={h} className="flex gap-2 text-muted-foreground">
-                        <span className="text-primary font-bold">✓</span>
+                      <li key={h} className="flex gap-2">
+                        <span className="text-primary">✓</span>
                         {h}
                       </li>
                     ))}
@@ -180,49 +184,26 @@ export default function ProjectsPage() {
                     variants={stagger}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true }}
                     className="flex flex-wrap gap-2"
                   >
                     {project.technologies.map((tech) => (
                       <motion.span
                         key={tech}
                         variants={scaleIn}
-                        whileHover={{ scale: 1.1 }}
-                        className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary font-medium"
+                        className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary"
                       >
                         {tech}
                       </motion.span>
                     ))}
                   </motion.div>
-
-                  <div className="flex gap-4 pt-4">
-                    <motion.a
-                      whileTap={{ scale: 0.95 }}
-                      href={project.liveUrl}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-semibold"
-                    >
-                      <ExternalLink size={16} />
-                      Live
-                    </motion.a>
-
-                    <motion.a
-                      whileTap={{ scale: 0.95 }}
-                      href={project.githubUrl}
-                      className="inline-flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg font-semibold"
-                    >
-                      <Github size={16} />
-                      Code
-                    </motion.a>
-                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* Footer */}
         <footer className="border-t border-border py-10 text-center text-sm text-muted-foreground">
-          © 2024 MERN Developer. All rights reserved.
+          © 2026 MERN Developer. All rights reserved.
         </footer>
       </motion.main>
     </>
