@@ -112,7 +112,7 @@ export default function ProjectsPage() {
         <section className="py-28">
           <div className="max-w-7xl mx-auto px-4">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              My <span className="text-primary">Projects</span>
+              Our <span className="text-primary">Projects</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl">
               Production-ready real-world projects.
@@ -203,7 +203,8 @@ export default function ProjectsPage() {
         </section>
 
         <footer className="border-t border-border py-10 text-center text-sm text-muted-foreground">
-          © 2026 MERN Developer. All rights reserved.
+          © 2026 Anwaar Gajdhar. MERN Stack Developer. All rights reserved.
+
         </footer>
       </motion.main>
     </>

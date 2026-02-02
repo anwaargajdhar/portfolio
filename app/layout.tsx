@@ -15,10 +15,19 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'MERN Stack Developer | Full-Stack Web Solutions',
+ title: 'Anwaar Gajdhar | MERN Stack Developer & Full-Stack Engineer',
   description:
-    'Professional MERN stack developer specializing in Web 2.0 and Web 3.0 technologies. Download my resume and explore innovative full-stack projects.',
-  generator: 'v0.app',
+    'Anwaar Gajdhar is a MERN Stack Developer specializing in React, Next.js, Node.js, and MongoDB. Building scalable, high-performance web applications.',
+  keywords: [
+    'Anwaar Gajdhar',
+    'MERN Stack Developer',
+    'Full Stack Developer',
+    'React Developer',
+    'Next.js Developer',
+    'Node.js Developer',
+    'Web Developer India',
+  ],
+  authors: [{ name: 'Anwaar Gajdhar' }],
   icons: {
     icon: [
       {

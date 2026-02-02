@@ -2,6 +2,7 @@
 
 import React from "react"
 
+import { FaWhatsapp } from 'react-icons/fa'
 import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Mail, Phone, MapPin, Send, Loader } from 'lucide-react'
@@ -76,25 +77,64 @@ export default function Contact() {
                   <Mail size={24} className="text-primary" />
                   <h3 className="text-xl font-bold">Email</h3>
                 </div>
-                <p className="text-muted-foreground mb-2">hello@example.com</p>
+                <p className="text-muted-foreground mb-2">anwarsmailid.com</p>
                 <p className="text-sm text-muted-foreground">I'll get back to you within 24 hours</p>
               </div>
 
-              <div className="p-8 rounded-xl border border-border bg-card hover:border-primary/50 transition-colors">
-                <div className="flex items-center gap-4 mb-4">
-                  <Phone size={24} className="text-primary" />
-                  <h3 className="text-xl font-bold">Phone</h3>
+              <div className="p-8 rounded-2xl border border-border bg-gradient-to-br from-card to-primary/5 hover:border-primary transition-all duration-300 hover:shadow-lg">
+                {/* Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="h-12 w-12 flex items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Phone size={22} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold">Phone & WhatsApp</h3>
+                    <p className="text-sm text-muted-foreground">Quick response guaranteed</p>
+                  </div>
                 </div>
-                <p className="text-muted-foreground mb-2">+1 (555) 123-4567</p>
-                <p className="text-sm text-muted-foreground">Available Mon-Fri, 9AM-6PM EST</p>
+
+                {/* Number */}
+                <p className="text-lg font-semibold tracking-wide mb-6">
+                  +91&nbsp;91745&nbsp;12319
+                </p>
+
+                {/* Actions */}
+                <div className="flex flex-wrap gap-4">
+                  {/* Call Button */}
+                  <a
+                    href="tel:+919174512319"
+                    className="flex items-center gap-2 px-5 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all"
+                  >
+                    <Phone size={18} />
+                    Call Now
+                  </a>
+
+                  {/* WhatsApp Button */}
+                  <a
+                    href="https://wa.me/919174512319?text=Hi%20Anwaar,%20I%20visited%20your%20portfolio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-5 py-3 rounded-lg bg-green-500 text-white font-semibold hover:bg-green-600 transition-all"
+                  >
+                    <FaWhatsapp size={20} />
+                    WhatsApp
+                  </a>
+                </div>
+
+                {/* Availability */}
+                <p className="text-sm text-muted-foreground mt-6">
+                  🕒 Available Mon–Fri · 9AM–6PM IST
+                </p>
               </div>
+
+
 
               <div className="p-8 rounded-xl border border-border bg-card hover:border-primary/50 transition-colors">
                 <div className="flex items-center gap-4 mb-4">
                   <MapPin size={24} className="text-primary" />
                   <h3 className="text-xl font-bold">Location</h3>
                 </div>
-                <p className="text-muted-foreground mb-2">San Francisco, CA</p>
+                <p className="text-muted-foreground mb-2">Indore and Dewas </p>
                 <p className="text-sm text-muted-foreground">Remote work available</p>
               </div>
 
@@ -103,23 +143,18 @@ export default function Contact() {
                 <h3 className="text-xl font-bold mb-4">Follow Me</h3>
                 <div className="space-y-3">
                   <a
-                    href="#"
+                    href="https://github.com/anwaargajdhar"
                     className="block text-primary hover:text-primary/80 transition-colors font-semibold"
                   >
                     GitHub →
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/in/anwaar-gajdhar-anwaar-gajdhar-234bb5233?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                     className="block text-primary hover:text-primary/80 transition-colors font-semibold"
                   >
                     LinkedIn →
                   </a>
-                  <a
-                    href="#"
-                    className="block text-primary hover:text-primary/80 transition-colors font-semibold"
-                  >
-                    Twitter →
-                  </a>
+
                 </div>
               </div>
             </div>
@@ -270,28 +305,13 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-8 md:p-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-            Ready to Start Your Project?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
-            Let's discuss how I can help bring your vision to life with cutting-edge technology and best practices.
-          </p>
-          <a
-            href="mailto:hello@example.com"
-            className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-          >
-            Schedule a Consultation
-          </a>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="border-t border-border bg-background/50 backdrop-blur mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center text-muted-foreground text-sm">
-          <p>&copy; 2024 MERN Developer. All rights reserved.</p>
+          <p>&copy;  2026 Anwaar Gajdhar. MERN Stack Developer. All rights reserved.
+</p>
+          
         </div>
       </footer>
     </main>

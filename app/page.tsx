@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Menu,
   X,
@@ -15,7 +16,7 @@ import { useState } from 'react'
 /* ---------------- Animation Variants ---------------- */
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
@@ -25,13 +26,11 @@ const fadeUp: Variants = {
 
 const container: Variants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12 },
-  },
+  visible: { transition: { staggerChildren: 0.12 } },
 }
 
 const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.94 },
   visible: {
     opacity: 1,
     scale: 1,
@@ -51,69 +50,57 @@ export default function Home() {
   ]
 
   const projects = [
-  {
-    title: 'Shodhavali – Academic Research Platform',
-    description:
-      'A comprehensive academic research platform for publishing, discovering, and managing scholarly journals and research papers with advanced search and a responsive UI.',
-    tags: ['React', 'Next.js', 'Node.js', 'MongoDB'],
-  },
-  {
-    title: 'Aroha Solutions – Corporate Website',
-    description:
-      'A modern, fast, and SEO-optimized corporate website showcasing IT services with a clean, professional, and service-focused layout.',
-    tags: ['React', 'Next.js', 'Tailwind CSS'],
-  },
- 
-]
+    {
+      title: 'Shodhavali – Academic Research Platform',
+      description:
+        'A full-scale academic research platform for publishing and discovering scholarly journals with advanced search and role-based access.',
+      tags: ['Next.js', 'React', 'Node.js', 'MongoDB'],
+    },
+    {
+      title: 'Aroha Solutions – Corporate Website',
+      description:
+        'A high-performance, SEO-optimized corporate website built with modern UI and conversion-focused layouts.',
+      tags: ['Next.js', 'Tailwind CSS'],
+    },
+  ]
 
   const skillsData = [
     {
-      id: 1,
       icon: '⚛️',
       title: 'Frontend',
       skills: [
         'React & Next.js',
         'TypeScript',
         'Tailwind CSS',
-        'Redux & Zustand',
         'Framer Motion',
         'Responsive Design',
       ],
     },
     {
-      id: 2,
       icon: '🔧',
       title: 'Backend',
       skills: [
         'Node.js & Express',
         'MongoDB & PostgreSQL',
-        'REST & GraphQL APIs',
+        'REST APIs',
         'Authentication',
-        'Redis & Caching',
-        'Microservices',
       ],
     },
     {
-      id: 3,
       icon: '☁️',
       title: 'DevOps & Tools',
-      skills: [
-        'Docker & Kubernetes',
-        'AWS & Vercel',
-        'CI/CD Pipelines',
-        'Git & GitHub',
-        'Testing',
-        'Performance Optimization',
-      ],
+      skills: ['Docker', 'Vercel', 'Git & GitHub', 'Performance Optimization'],
     },
   ]
 
   return (
     <main className="min-h-screen bg-background text-foreground">
       {/* ---------------- NAV ---------------- */}
-      <nav className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
+      <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <span className="text-2xl font-bold text-primary">DevFolio</span>
+          <span className="text-2xl font-bold text-primary">
+            Anwaar<span className="text-foreground">.dev</span>
+          </span>
 
           <div className="hidden md:flex gap-8">
             {navLinks.map((link) => (
@@ -123,28 +110,10 @@ export default function Home() {
             ))}
           </div>
 
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden"
-          >
+          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden">
             {mobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-border px-4 py-4 space-y-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-        )}
       </nav>
 
       {/* ---------------- HERO ---------------- */}
@@ -157,47 +126,37 @@ export default function Home() {
         >
           <motion.div variants={fadeUp} className="space-y-6">
             <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
-              🚀 MERN Stack Developer
+              🚀 Full-Stack MERN Developer
             </span>
 
-            <h1 className="text-5xl md:text-6xl font-bold">
-              Building the Future of Web
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+              Hi, I’m <span className="text-primary">Anwaar Gajdhar</span>
             </h1>
 
-            <p className="text-muted-foreground text-lg">
-              Full-stack MERN developer specializing in building scalable, high-performance web applications with clean architectures, secure APIs, and modern Web3 integrations for real-world use cases.
+            <p className="text-muted-foreground text-lg max-w-xl">
+              I design and build scalable, secure, and high-performance web applications
+              using React, Next.js, Node.js, and MongoDB — focused on real-world impact.
             </p>
 
-
             <div className="flex gap-4">
-              <a
-                href="#projects"
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold"
-              >
+              <a href="#projects" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold">
                 View Work
               </a>
-
-              <a
-                href="/resume.pdf"
-                download
-                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold"
-              >
-                Download Resume
+              <a href="/resume.pdf" download className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold">
+                Resume
               </a>
             </div>
           </motion.div>
 
-          <motion.div
-            variants={fadeUp}
-            className="hidden md:flex h-96 rounded-2xl bg-primary/10 border border-border items-center justify-center"
-          >
-            <img
+          <motion.div variants={fadeUp} className="hidden md:flex justify-center">
+            <Image
               src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
-              alt="Developer animation"
-              className="w-72"
+              alt="Developer working illustration"
+              width={320}
+              height={320}
+              priority
             />
           </motion.div>
-
         </motion.div>
       </section>
 
@@ -212,7 +171,7 @@ export default function Home() {
         >
           {skillsData.map((cat) => (
             <motion.div
-              key={cat.id}
+              key={cat.title}
               variants={fadeUp}
               whileHover={{ y: -6 }}
               className="p-8 rounded-xl border border-border bg-card"
@@ -236,29 +195,18 @@ export default function Home() {
             Featured <span className="text-primary">Projects</span>
           </h2>
 
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 gap-8"
-          >
-            {projects.map((p: any) => (
+          <motion.div className="grid md:grid-cols-2 gap-8">
+            {projects.map((p) => (
               <motion.div
                 key={p.title}
-                variants={scaleIn}
+                whileHover={{ y: -6 }}
                 className="p-8 rounded-xl border border-border bg-card"
               >
                 <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {p.description}
-                </p>
+                <p className="text-sm text-muted-foreground mb-4">{p.description}</p>
                 <div className="flex gap-2 flex-wrap">
-                  {p.tags.map((tag: any) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 text-xs bg-primary/10 text-primary rounded-full"
-                    >
+                  {p.tags.map((tag) => (
+                    <span key={tag} className="px-3 py-1 text-xs bg-primary/10 text-primary rounded-full">
                       {tag}
                     </span>
                   ))}
@@ -267,117 +215,34 @@ export default function Home() {
             ))}
           </motion.div>
 
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 mt-12 text-primary font-semibold"
-          >
-            View All <ArrowRight />
+          <Link href="/projects" className="inline-flex items-center gap-2 mt-12 text-primary font-semibold">
+            View All Projects <ArrowRight />
           </Link>
         </div>
       </section>
-
-
-      {/* ---------------- ABOUT ---------------- */}
-      <section id="about" className="py-24 ">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
-        >
-          {/* Left Content */}
-          <motion.div variants={fadeUp} className="space-y-6">
-            <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
-              👋 About Me
-            </span>
-
-            <h2 className="text-4xl font-bold leading-tight">
-              Passionate Full-Stack Developer
-              <br />
-              Turning Ideas Into Scalable Products
-            </h2>
-
-            <p className="text-muted-foreground leading-relaxed">
-              I’m a MERN stack developer focused on building scalable, secure, and
-              high-performance web applications. I enjoy working across the entire
-              stack — from crafting clean and responsive user interfaces to designing
-              robust backend APIs and database architectures.
-            </p>
-
-            <p className="text-muted-foreground leading-relaxed">
-              With hands-on experience in real-world projects, I specialize in modern
-              JavaScript frameworks, cloud-ready deployments, and Web3 integrations.
-              My goal is to create impactful digital solutions that solve real
-              business problems.
-            </p>
-
-            <div className="flex gap-4 pt-2">
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold"
-              >
-                More About Me <ArrowRight size={18} />
-              </Link>
-
-              <a
-                href="/resume.pdf"
-                download
-                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold"
-              >
-                View Resume
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Right Visual */}
-          <motion.div
-            variants={fadeUp}
-            className="hidden md:flex h-96 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border items-center justify-center"
-          >
-            <span className="text-8xl">👨‍💻</span>
-          </motion.div>
-        </motion.div>
-      </section>
-
-
-
 
       {/* ---------------- CONTACT ---------------- */}
       <section
         id="contact"
         className="py-28 text-center bg-gradient-to-r from-primary/10 to-accent/10"
       >
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible">
-          <h2 className="text-4xl font-bold mb-6">
-            Let’s Build Something Amazing
-          </h2>
-          <p className="text-muted-foreground mb-8">
-            Open to new opportunities and collaborations.
-          </p>
-          <Link
-            href="/contact"
-            className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold"
-          >
-            Get In Touch
-          </Link>
-        </motion.div>
+        <h2 className="text-4xl font-bold mb-6">Let’s Build Something Great</h2>
+        <p className="text-muted-foreground mb-8">
+          Open to full-time roles, freelance work, and collaborations.
+        </p>
+        <Link href="/contact" className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold">
+          Get In Touch
+        </Link>
       </section>
 
       {/* ---------------- FOOTER ---------------- */}
       <footer className="border-t border-border py-10 text-center text-sm text-muted-foreground">
         <div className="flex justify-center gap-6 mb-4">
-          <a href="#" aria-label="GitHub">
-            <Github size={18} />
-          </a>
-          <a href="#" aria-label="LinkedIn">
-            <Linkedin size={18} />
-          </a>
-          <a href="mailto:anwarsmailid@gmail.com" aria-label="Email">
-            <Mail size={18} />
-          </a>
+          <a href="https://www.linkedin.com/in/anwaar-gajdhar-anwaar-gajdhar-234bb5233?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="GitHub"><Github size={18} /></a>
+          <a href="https://www.linkedin.com/posts/viriminfotech_hiringfreshers-joinourteam-2026passout-activity-7424039654674501633-DUNc?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAADpgUggBV0i7MTW46c7cIrcluYZxxl3KjRk&utm_campaign=whatsapp" aria-label="LinkedIn"><Linkedin size={18} /></a>
+          <a href="mailto:anwarsmailid@gmail.com" aria-label="Email"><Mail size={18} /></a>
         </div>
-        © 2026 MERN Developer. All rights reserved.
+        © 2026 Anwaar Gajdhar. All rights reserved.
       </footer>
     </main>
   )
