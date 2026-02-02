@@ -51,12 +51,12 @@ export default function Home() {
   ]
 
   const projects = [
-  {
-  title: 'E-Commerce Platform',
-  description:
-    'End-to-end MERN e-commerce application implementing secure user authentication, real-time inventory tracking, Stripe payments, order management, and an admin dashboard for products, users, and sales monitoring.',
-  tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Stripe'],
-},
+    {
+      title: 'E-Commerce Platform',
+      description:
+        'End-to-end MERN e-commerce application implementing secure user authentication, real-time inventory tracking, Stripe payments, order management, and an admin dashboard for products, users, and sales monitoring.',
+      tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Stripe'],
+    },
     {
       title: 'Web3 DeFi Dashboard',
       description:
@@ -163,9 +163,9 @@ export default function Home() {
               Building the Future of Web
             </h1>
 
-          <p className="text-muted-foreground text-lg">
-  Full-stack MERN developer specializing in building scalable, high-performance web applications with clean architectures, secure APIs, and modern Web3 integrations for real-world use cases.
-</p>
+            <p className="text-muted-foreground text-lg">
+              Full-stack MERN developer specializing in building scalable, high-performance web applications with clean architectures, secure APIs, and modern Web3 integrations for real-world use cases.
+            </p>
 
 
             <div className="flex gap-4">
@@ -190,8 +190,13 @@ export default function Home() {
             variants={fadeUp}
             className="hidden md:flex h-96 rounded-2xl bg-primary/10 border border-border items-center justify-center"
           >
-            <span className="text-8xl">💻</span>
+            <img
+              src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
+              alt="Developer animation"
+              className="w-72"
+            />
           </motion.div>
+
         </motion.div>
       </section>
 
@@ -237,7 +242,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="grid md:grid-cols-2 gap-8"
           >
-            {projects.map((p:any) => (
+            {projects.map((p: any) => (
               <motion.div
                 key={p.title}
                 variants={scaleIn}
@@ -248,7 +253,7 @@ export default function Home() {
                   {p.description}
                 </p>
                 <div className="flex gap-2 flex-wrap">
-                  {p.tags.map((tag:any) => (
+                  {p.tags.map((tag: any) => (
                     <span
                       key={tag}
                       className="px-3 py-1 text-xs bg-primary/10 text-primary rounded-full"
@@ -271,68 +276,68 @@ export default function Home() {
       </section>
 
 
-          {/* ---------------- ABOUT ---------------- */}
-<section id="about" className="py-24 ">
-  <motion.div
-    variants={container}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
-  >
-    {/* Left Content */}
-    <motion.div variants={fadeUp} className="space-y-6">
-      <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
-        👋 About Me
-      </span>
-
-      <h2 className="text-4xl font-bold leading-tight">
-        Passionate Full-Stack Developer
-        <br />
-        Turning Ideas Into Scalable Products
-      </h2>
-
-      <p className="text-muted-foreground leading-relaxed">
-        I’m a MERN stack developer focused on building scalable, secure, and
-        high-performance web applications. I enjoy working across the entire
-        stack — from crafting clean and responsive user interfaces to designing
-        robust backend APIs and database architectures.
-      </p>
-
-      <p className="text-muted-foreground leading-relaxed">
-        With hands-on experience in real-world projects, I specialize in modern
-        JavaScript frameworks, cloud-ready deployments, and Web3 integrations.
-        My goal is to create impactful digital solutions that solve real
-        business problems.
-      </p>
-
-      <div className="flex gap-4 pt-2">
-        <Link
-          href="/about"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold"
+      {/* ---------------- ABOUT ---------------- */}
+      <section id="about" className="py-24 ">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
         >
-          More About Me <ArrowRight size={18} />
-        </Link>
+          {/* Left Content */}
+          <motion.div variants={fadeUp} className="space-y-6">
+            <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+              👋 About Me
+            </span>
 
-        <a
-          href="/resume.pdf"
-          download
-          className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold"
-        >
-          View Resume
-        </a>
-      </div>
-    </motion.div>
+            <h2 className="text-4xl font-bold leading-tight">
+              Passionate Full-Stack Developer
+              <br />
+              Turning Ideas Into Scalable Products
+            </h2>
 
-    {/* Right Visual */}
-    <motion.div
-      variants={fadeUp}
-      className="hidden md:flex h-96 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border items-center justify-center"
-    >
-      <span className="text-8xl">👨‍💻</span>
-    </motion.div>
-  </motion.div>
-</section>
+            <p className="text-muted-foreground leading-relaxed">
+              I’m a MERN stack developer focused on building scalable, secure, and
+              high-performance web applications. I enjoy working across the entire
+              stack — from crafting clean and responsive user interfaces to designing
+              robust backend APIs and database architectures.
+            </p>
+
+            <p className="text-muted-foreground leading-relaxed">
+              With hands-on experience in real-world projects, I specialize in modern
+              JavaScript frameworks, cloud-ready deployments, and Web3 integrations.
+              My goal is to create impactful digital solutions that solve real
+              business problems.
+            </p>
+
+            <div className="flex gap-4 pt-2">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold"
+              >
+                More About Me <ArrowRight size={18} />
+              </Link>
+
+              <a
+                href="/resume.pdf"
+                download
+                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold"
+              >
+                View Resume
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Right Visual */}
+          <motion.div
+            variants={fadeUp}
+            className="hidden md:flex h-96 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border items-center justify-center"
+          >
+            <span className="text-8xl">👨‍💻</span>
+          </motion.div>
+        </motion.div>
+      </section>
 
 
 
