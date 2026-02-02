@@ -51,19 +51,20 @@ export default function Home() {
   ]
 
   const projects = [
-    {
-      title: 'E-Commerce Platform',
-      description:
-        'End-to-end MERN e-commerce application implementing secure user authentication, real-time inventory tracking, Stripe payments, order management, and an admin dashboard for products, users, and sales monitoring.',
-      tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Stripe'],
-    },
-    {
-      title: 'Web3 DeFi Dashboard',
-      description:
-        'Blockchain-powered dashboard with wallet integration and live smart contract data.',
-      tags: ['React', 'Web3.js', 'Solidity', 'Ethereum'],
-    },
-  ]
+  {
+    title: 'Shodhavali – Academic Research Platform',
+    description:
+      'A comprehensive academic research platform for publishing, discovering, and managing scholarly journals and research papers with advanced search and a responsive UI.',
+    tags: ['React', 'Next.js', 'Node.js', 'MongoDB'],
+  },
+  {
+    title: 'Aroha Solutions – Corporate Website',
+    description:
+      'A modern, fast, and SEO-optimized corporate website showcasing IT services with a clean, professional, and service-focused layout.',
+    tags: ['React', 'Next.js', 'Tailwind CSS'],
+  },
+ 
+]
 
   const skillsData = [
     {
