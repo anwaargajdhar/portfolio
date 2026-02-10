@@ -186,6 +186,70 @@ export default function Home() {
           ))}
         </motion.div>
       </section>
+    {/* ---------------- PROJECTS ---------------- */}
+<section id="projects" className="py-28 bg-black/30">
+  <div className="max-w-7xl mx-auto px-4">
+    
+    {/* Header */}
+    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
+      <h2 className="text-4xl font-bold">
+        Featured <span className="text-indigo-400">Projects</span>
+      </h2>
+
+      <Link
+        href="/projects"
+        className="inline-flex items-center gap-2 px-6 py-3
+                   bg-indigo-500/10 text-indigo-400 border border-indigo-500/20
+                   rounded-full font-medium hover:bg-indigo-500 hover:text-white transition"
+      >
+        View All Projects <ArrowRight size={18} />
+      </Link>
+    </div>
+
+    {/* Projects Grid */}
+    <motion.div className="grid md:grid-cols-2 gap-8">
+      {projects.map((p) => (
+        <motion.div
+          key={p.title}
+          {...glowHover}
+          className="p-8 rounded-2xl bg-white/5 backdrop-blur
+                     border border-white/10 flex flex-col justify-between"
+        >
+          <div>
+            <h3 className="text-xl font-bold mb-2">{p.title}</h3>
+            <p className="text-sm text-slate-400 mb-5 leading-relaxed">
+              {p.description}
+            </p>
+
+            <div className="flex gap-2 flex-wrap">
+              {p.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 text-xs bg-indigo-500/10
+                             text-indigo-400 rounded-full border border-indigo-500/20"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Card Button */}
+          {p.link && (
+            <Link
+              href={p.link}
+              className="mt-6 inline-flex items-center gap-2 text-sm
+                         text-indigo-400 hover:text-indigo-300 transition"
+            >
+              View Project <ArrowRight size={16} />
+            </Link>
+          )}
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
+</section>
+
 
       {/* ---------------- ABOUT ---------------- */}
       <section id="about" className="py-28">
