@@ -1,40 +1,35 @@
+
+
+
 'use client'
 
 import { motion, type Variants } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import {
-  Menu,
-  X,
-  ArrowRight,
-  Github,
-  Linkedin,
-  Mail,
-} from 'lucide-react'
+import { Menu, X, ArrowRight, Github, Linkedin, Mail } from 'lucide-react'
 import { useState } from 'react'
 
-/* ---------------- Animation Variants ---------------- */
+/* ---------------- Animations ---------------- */
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 28 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   },
 }
 
 const container: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.14 } },
 }
 
-const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.94 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.4 },
+const glowHover = {
+  whileHover: {
+    y: -8,
+    boxShadow: '0 25px 70px rgba(99,102,241,0.25)',
+    transition: { duration: 0.3 },
   },
 }
 
@@ -94,17 +89,18 @@ export default function Home() {
   ]
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-[#0b0f19] text-slate-200">
+
       {/* ---------------- NAV ---------------- */}
-      <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+      <nav className="sticky top-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <span className="text-2xl font-bold text-primary">
-            Anwaar<span className="text-foreground">.dev</span>
+          <span className="text-2xl font-bold text-indigo-400">
+            Anwaar<span className="text-slate-200">.dev</span>
           </span>
 
           <div className="hidden md:flex gap-8">
             {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="hover:text-primary">
+              <a key={link.name} href={link.href} className="hover:text-indigo-400 transition">
                 {link.name}
               </a>
             ))}
@@ -117,32 +113,34 @@ export default function Home() {
       </nav>
 
       {/* ---------------- HERO ---------------- */}
-      <section className="pt-28 pb-36">
+      <section className="pt-32 pb-40 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#6366f130,transparent_70%)]" />
+
         <motion.div
           variants={container}
           initial="hidden"
           animate="visible"
-          className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
+          className="relative max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
         >
           <motion.div variants={fadeUp} className="space-y-6">
-            <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+            <span className="inline-block px-4 py-1 bg-indigo-500/10 text-indigo-400 rounded-full text-sm border border-indigo-500/20">
               🚀 Full-Stack MERN Developer
             </span>
 
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-              Hi, I’m <span className="text-primary">Anwaar Gajdhar</span>
+              Hi, I’m <span className="text-indigo-400">Anwaar Gajdhar</span>
             </h1>
 
-            <p className="text-muted-foreground text-lg max-w-xl">
+            <p className="text-slate-400 text-lg max-w-xl">
               I design and build scalable, secure, and high-performance web applications
               using React, Next.js, Node.js, and MongoDB — focused on real-world impact.
             </p>
 
             <div className="flex gap-4">
-              <a href="#projects" className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold">
+              <a href="#projects" className="px-6 py-3 bg-indigo-500 text-white rounded-lg font-semibold shadow-lg shadow-indigo-500/30">
                 View Work
               </a>
-              <a href="/resume.pdf" download className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold">
+              <a href="/resume.pdf" download className="px-6 py-3 border border-indigo-400 text-indigo-400 rounded-lg font-semibold hover:bg-indigo-500/10 transition">
                 Resume
               </a>
             </div>
@@ -151,9 +149,10 @@ export default function Home() {
           <motion.div variants={fadeUp} className="hidden md:flex justify-center">
             <Image
               src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
-              alt="Developer working illustration"
+              alt="Developer"
               width={320}
               height={320}
+              className="rounded-xl border border-white/10 shadow-xl"
               priority
             />
           </motion.div>
@@ -161,7 +160,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- SKILLS ---------------- */}
-      <section className="py-20">
+      <section className="py-24">
         <motion.div
           variants={container}
           initial="hidden"
@@ -173,12 +172,12 @@ export default function Home() {
             <motion.div
               key={cat.title}
               variants={fadeUp}
-              whileHover={{ y: -6 }}
-              className="p-8 rounded-xl border border-border bg-card"
+              {...glowHover}
+              className="p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
             >
               <div className="text-5xl mb-4">{cat.icon}</div>
               <h3 className="text-xl font-bold mb-4">{cat.title}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <ul className="space-y-2 text-sm text-slate-400">
                 {cat.skills.map((skill) => (
                   <li key={skill}>• {skill}</li>
                 ))}
@@ -189,7 +188,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- ABOUT ---------------- */}
-      <section id="about" className="py-24">
+      <section id="about" className="py-28">
         <motion.div
           variants={container}
           initial="hidden"
@@ -197,9 +196,8 @@ export default function Home() {
           viewport={{ once: true }}
           className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
         >
-          {/* Left Content */}
           <motion.div variants={fadeUp} className="space-y-6">
-            <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+            <span className="inline-block px-3 py-1 bg-indigo-500/10 text-indigo-400 rounded-full text-sm">
               👋 About Me
             </span>
 
@@ -209,14 +207,14 @@ export default function Home() {
               Turning Ideas Into Scalable Products
             </h2>
 
-            <p className="text-muted-foreground leading-relaxed text-lg">
+            <p className="text-slate-400 text-lg leading-relaxed">
               I’m <strong>Anwaar Gajdhar</strong>, a MERN stack developer dedicated to building
               secure, scalable, and high-performance web applications. I thrive across the entire
               stack — from creating clean and responsive user interfaces to designing robust backend
               APIs and database architectures.
             </p>
 
-            <p className="text-muted-foreground leading-relaxed text-lg">
+            <p className="text-slate-400 text-lg leading-relaxed">
               With hands-on experience in real-world projects, I specialize in modern JavaScript
               frameworks, cloud-ready deployments, and Web3 integrations. My goal is to deliver
               impactful digital solutions that solve real business problems.
@@ -225,7 +223,7 @@ export default function Home() {
             <div className="flex gap-4 pt-4">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-500 text-white rounded-lg font-semibold"
               >
                 More About Me <ArrowRight size={18} />
               </Link>
@@ -233,76 +231,82 @@ export default function Home() {
               <a
                 href="/resume.pdf"
                 download
-                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition"
+                className="px-6 py-3 border border-indigo-400 text-indigo-400 rounded-lg font-semibold hover:bg-indigo-500/10 transition"
               >
                 View Resume
               </a>
             </div>
           </motion.div>
 
-          {/* Right Visual */}
           <motion.div
-            variants={fadeUp}
-            className="hidden md:flex h-96 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 border border-border items-center justify-center"
-          >
-            <span className="text-8xl">👨‍💻</span>
-          </motion.div>
+  variants={container}
+  className="hidden md:grid gap-6"
+>
+  <motion.div
+    variants={fadeUp}
+    {...glowHover}
+    className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+  >
+    <h4 className="text-lg font-semibold mb-2 text-indigo-400">
+      Full-Stack Expertise
+    </h4>
+    <p className="text-sm text-slate-400 leading-relaxed">
+      Building complete web solutions from responsive user interfaces to secure,
+      scalable backend systems using modern JavaScript technologies.
+    </p>
+  </motion.div>
+
+  <motion.div
+    variants={fadeUp}
+    {...glowHover}
+    className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+  >
+    <h4 className="text-lg font-semibold mb-2 text-indigo-400">
+      Real-World Project Experience
+    </h4>
+    <p className="text-sm text-slate-400 leading-relaxed">
+      Hands-on experience delivering production-ready applications with
+      performance optimization, authentication, and clean architecture.
+    </p>
+  </motion.div>
+
+  <motion.div
+    variants={fadeUp}
+    {...glowHover}
+    className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+  >
+    <h4 className="text-lg font-semibold mb-2 text-indigo-400">
+      Growth & Learning Mindset
+    </h4>
+    <p className="text-sm text-slate-400 leading-relaxed">
+      Continuously exploring new frameworks, tools, and best practices to build
+      future-ready digital products.
+    </p>
+  </motion.div>
+</motion.div>
+
         </motion.div>
-      </section>
-
-
-      {/* ---------------- PROJECTS ---------------- */}
-      <section id="projects" className="py-24 bg-secondary/5">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12">
-            Featured <span className="text-primary">Projects</span>
-          </h2>
-
-          <motion.div className="grid md:grid-cols-2 gap-8">
-            {projects.map((p) => (
-              <motion.div
-                key={p.title}
-                whileHover={{ y: -6 }}
-                className="p-8 rounded-xl border border-border bg-card"
-              >
-                <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{p.description}</p>
-                <div className="flex gap-2 flex-wrap">
-                  {p.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 text-xs bg-primary/10 text-primary rounded-full">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <Link href="/projects" className="inline-flex items-center gap-2 mt-12 text-primary font-semibold">
-            View All Projects <ArrowRight />
-          </Link>
-        </div>
       </section>
 
       {/* ---------------- CONTACT ---------------- */}
       <section
         id="contact"
-        className="py-28 text-center bg-gradient-to-r from-primary/10 to-accent/10"
+        className="py-32 text-center bg-gradient-to-r from-indigo-500/10 to-purple-500/10"
       >
         <h2 className="text-4xl font-bold mb-6">Let’s Build Something Great</h2>
-        <p className="text-muted-foreground mb-8">
+        <p className="text-slate-400 mb-8">
           Open to full-time roles, freelance work, and collaborations.
         </p>
-        <Link href="/contact" className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold">
+        <Link href="/contact" className="px-8 py-3 bg-indigo-500 text-white rounded-lg font-semibold shadow-lg shadow-indigo-500/30">
           Get In Touch
         </Link>
       </section>
 
       {/* ---------------- FOOTER ---------------- */}
-      <footer className="border-t border-border py-10 text-center text-sm text-muted-foreground">
+      <footer className="border-t border-white/10 py-10 text-center text-sm text-slate-400">
         <div className="flex justify-center gap-6 mb-4">
-          <a href="https://www.linkedin.com/in/anwaar-gajdhar-anwaar-gajdhar-234bb5233?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="GitHub"><Github size={18} /></a>
-          <a href="https://www.linkedin.com/posts/viriminfotech_hiringfreshers-joinourteam-2026passout-activity-7424039654674501633-DUNc?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAADpgUggBV0i7MTW46c7cIrcluYZxxl3KjRk&utm_campaign=whatsapp" aria-label="LinkedIn"><Linkedin size={18} /></a>
+          <a href="#" aria-label="GitHub"><Github size={18} /></a>
+          <a href="#" aria-label="LinkedIn"><Linkedin size={18} /></a>
           <a href="mailto:anwarsmailid@gmail.com" aria-label="Email"><Mail size={18} /></a>
         </div>
         © 2026 Anwaar Gajdhar. All rights reserved.
@@ -310,3 +314,4 @@ export default function Home() {
     </main>
   )
 }
+
