@@ -327,15 +327,13 @@ export default function Home() {
       </section>
 
       {/* SKILLS with FIXED RAIN */}
-      <section className="py-24 relative overflow-hidden">
-
-
+      <section className="py-24">
         <motion.div
           variants={containerskill}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="relative z-10 max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8"
+          className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8"
         >
           {skillsData.map((cat) => (
             <motion.div
@@ -344,6 +342,7 @@ export default function Home() {
               {...glowHoverskill}
               className="relative overflow-hidden p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
             >
+              {/* Rain Animation (Now inside box only) */}
               <div className="absolute inset-0 z-0 pointer-events-none">
                 {drops.map((drop, i) => (
                   <span
@@ -357,21 +356,42 @@ export default function Home() {
                   />
                 ))}
               </div>
-              <div className="text-5xl mb-4">{cat.icon}</div>
-              <h3 className="text-xl font-bold mb-4 text-white">{cat.title}</h3>
-              <ul className="space-y-2 text-sm text-slate-300">
-                {cat.skills.map((skill) => (
-                  <li key={skill}>• {skill}</li>
-                ))}
-              </ul>
+
+              {/* Content */}
+              <div className="relative z-10">
+                <div className="text-5xl mb-4">{cat.icon}</div>
+                <h3 className="text-xl font-bold mb-4 text-white">
+                  {cat.title}
+                </h3>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  {cat.skills.map((skill) => (
+                    <li key={skill}>• {skill}</li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
+
       {/* PROJECTS */}
       <section id="projects" className="py-28 bg-black/30">
         <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
+            <h2 className="text-4xl font-bold">
+              Featured <span className="text-indigo-400">Projects</span>
+            </h2>
+
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 px-6 py-3
+                   bg-indigo-500/10 text-indigo-400 border border-indigo-500/20
+                   rounded-full font-medium hover:bg-indigo-500 hover:text-white transition"
+            >
+              View All Projects <ArrowRight size={18} />
+            </Link>
+          </div>
           <div className="grid md:grid-cols-2 gap-12">
             {projects.map((project, index) => (
               <motion.div
