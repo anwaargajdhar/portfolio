@@ -55,7 +55,7 @@ const glowHoverskill = {
 const slideVariant = (direction: 'left' | 'right'): Variants => ({
   hidden: {
     opacity: 0,
-    x: direction === 'left' ? -120 : 120,
+    x: direction === 'left' ? -100 : 100,
   },
   visible: {
     opacity: 1,
@@ -328,19 +328,7 @@ export default function Home() {
 
       {/* SKILLS with FIXED RAIN */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          {drops.map((drop, i) => (
-            <span
-              key={i}
-              className="rain-drop"
-              style={{
-                left: drop.left,
-                animationDelay: drop.delay,
-                animationDuration: drop.duration,
-              }}
-            />
-          ))}
-        </div>
+
 
         <motion.div
           variants={containerskill}
@@ -354,8 +342,21 @@ export default function Home() {
               key={cat.title}
               variants={fadeUpskill}
               {...glowHoverskill}
-              className="p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+              className="relative overflow-hidden p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
             >
+              <div className="absolute inset-0 z-0 pointer-events-none">
+                {drops.map((drop, i) => (
+                  <span
+                    key={i}
+                    className="rain-drop"
+                    style={{
+                      left: drop.left,
+                      animationDelay: drop.delay,
+                      animationDuration: drop.duration,
+                    }}
+                  />
+                ))}
+              </div>
               <div className="text-5xl mb-4">{cat.icon}</div>
               <h3 className="text-xl font-bold mb-4 text-white">{cat.title}</h3>
               <ul className="space-y-2 text-sm text-slate-300">
