@@ -1,13 +1,11 @@
-
-
-
 'use client'
 
 import { motion, type Variants } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, ArrowRight, Github, Linkedin, Mail } from 'lucide-react'
-import { useState } from 'react'
+import { FaLaptopCode, FaServer, FaCloud } from "react-icons/fa"
+import { useState, useEffect } from 'react'
 
 /* ---------------- Animations ---------------- */
 
@@ -33,10 +31,57 @@ const glowHover = {
   },
 }
 
+/* ---------------- Skills Animations ---------------- */
+
+const containerskill: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.2 } },
+}
+
+const fadeUpskill: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+}
+
+const glowHoverskill = {
+  whileHover: {
+    scale: 1.05,
+    boxShadow: '0 0 30px rgba(99,102,241,0.5)',
+  },
+}
+
+/* ---------------- Project Slide ---------------- */
+
+const slideVariant = (direction: 'left' | 'right'): Variants => ({
+  hidden: {
+    opacity: 0,
+    x: direction === 'left' ? -120 : 120,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 1, ease: 'easeOut' },
+  },
+})
+
 /* ---------------- Page ---------------- */
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  /* ✅ FIXED Rain Drops (Client Only) */
+  const [drops, setDrops] = useState<
+    { left: string; delay: string; duration: string }[]
+  >([])
+
+  useEffect(() => {
+    const generated = Array.from({ length: 80 }).map(() => ({
+      left: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 5}s`,
+      duration: `${0.7 + Math.random()}s`,
+    }))
+    setDrops(generated)
+  }, [])
 
   const navLinks = [
     { name: 'About', href: '#about' },
@@ -61,7 +106,7 @@ export default function Home() {
 
   const skillsData = [
     {
-      icon: '⚛️',
+      icon: <FaLaptopCode className="animate-bounce text-indigo-400" />,
       title: 'Frontend',
       skills: [
         'React & Next.js',
@@ -72,7 +117,7 @@ export default function Home() {
       ],
     },
     {
-      icon: '🔧',
+      icon: <FaServer className="animate-pulse text-green-400" />,
       title: 'Backend',
       skills: [
         'Node.js & Express',
@@ -82,7 +127,7 @@ export default function Home() {
       ],
     },
     {
-      icon: '☁️',
+      icon: <FaCloud className="animate-spin text-blue-400" />,
       title: 'DevOps & Tools',
       skills: ['Docker', 'Vercel', 'Git & GitHub', 'Performance Optimization'],
     },
@@ -91,13 +136,12 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#0b0f19] text-slate-200">
 
-      {/* ---------------- NAV ---------------- */}
+      {/* NAV */}
       <nav className="sticky top-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <span className="text-2xl font-bold text-indigo-400">
             Anwaar<span className="text-slate-200">.dev</span>
           </span>
-
           <div className="hidden md:flex gap-8">
             {navLinks.map((link) => (
               <a key={link.name} href={link.href} className="hover:text-indigo-400 transition">
@@ -105,17 +149,15 @@ export default function Home() {
               </a>
             ))}
           </div>
-
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden">
             {mobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
       </nav>
 
-      {/* ---------------- HERO ---------------- */}
+      {/* HERO */}
       <section className="pt-32 pb-40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#6366f130,transparent_70%)]" />
-
         <motion.div
           variants={container}
           initial="hidden"
@@ -126,16 +168,13 @@ export default function Home() {
             <span className="inline-block px-4 py-1 bg-indigo-500/10 text-indigo-400 rounded-full text-sm border border-indigo-500/20">
               🚀 Full-Stack MERN Developer
             </span>
-
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
               Hi, I’m <span className="text-indigo-400">Anwaar Gajdhar</span>
             </h1>
-
             <p className="text-slate-400 text-lg max-w-xl">
               I design and build scalable, secure, and high-performance web applications
-              using React, Next.js, Node.js, and MongoDB — focused on real-world impact.
+              using React, Next.js, Node.js, and MongoDB.
             </p>
-
             <div className="flex gap-4">
               <a href="#projects" className="px-6 py-3 bg-indigo-500 text-white rounded-lg font-semibold shadow-lg shadow-indigo-500/30">
                 View Work
@@ -145,7 +184,6 @@ export default function Home() {
               </a>
             </div>
           </motion.div>
-
           <motion.div variants={fadeUp} className="hidden md:flex justify-center">
             <Image
               src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
@@ -159,100 +197,36 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ---------------- SKILLS ---------------- */}
-      <section className="py-24">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8"
-        >
-          {skillsData.map((cat) => (
+      {/* ---------------- about ---------------- */}
+
+      <section id="about" className="py-28 relative overflow-hidden  z-0">
+        {/* Background Animated Squares */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {[...Array(8)].map((_, i) => (
             <motion.div
-              key={cat.title}
-              variants={fadeUp}
-              {...glowHover}
-              className="p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
-            >
-              <div className="text-5xl mb-4">{cat.icon}</div>
-              <h3 className="text-xl font-bold mb-4">{cat.title}</h3>
-              <ul className="space-y-2 text-sm text-slate-400">
-                {cat.skills.map((skill) => (
-                  <li key={skill}>• {skill}</li>
-                ))}
-              </ul>
-            </motion.div>
+              key={i}
+              initial={{ opacity: 0.2, scale: 0.8 }}
+              animate={{
+                opacity: [0.2, 0.4, 0.2],
+                scale: [0.8, 1.2, 0.8],
+                y: [0, -40, 0],
+              }}
+              transition={{
+                duration: 6 + i,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute bg-indigo-500/20 border border-indigo-500/40 backdrop-blur-sm"
+              style={{
+                width: `${40 + i * 10}px`,
+                height: `${40 + i * 10}px`,
+                left: `${10 + i * 10}%`,
+                top: `${20 + (i % 4) * 20}%`,
+              }}
+            />
           ))}
-        </motion.div>
-      </section>
-    {/* ---------------- PROJECTS ---------------- */}
-<section id="projects" className="py-28 bg-black/30">
-  <div className="max-w-7xl mx-auto px-4">
-    
-    {/* Header */}
-    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12 gap-6">
-      <h2 className="text-4xl font-bold">
-        Featured <span className="text-indigo-400">Projects</span>
-      </h2>
+        </div>
 
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-2 px-6 py-3
-                   bg-indigo-500/10 text-indigo-400 border border-indigo-500/20
-                   rounded-full font-medium hover:bg-indigo-500 hover:text-white transition"
-      >
-        View All Projects <ArrowRight size={18} />
-      </Link>
-    </div>
-
-    {/* Projects Grid */}
-    <motion.div className="grid md:grid-cols-2 gap-8">
-      {projects.map((p) => (
-        <motion.div
-          key={p.title}
-          {...glowHover}
-          className="p-8 rounded-2xl bg-white/5 backdrop-blur
-                     border border-white/10 flex flex-col justify-between"
-        >
-          <div>
-            <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-            <p className="text-sm text-slate-400 mb-5 leading-relaxed">
-              {p.description}
-            </p>
-
-            <div className="flex gap-2 flex-wrap">
-              {p.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 text-xs bg-indigo-500/10
-                             text-indigo-400 rounded-full border border-indigo-500/20"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Card Button */}
-          {p.link && (
-            <Link
-              href={p.link}
-              className="mt-6 inline-flex items-center gap-2 text-sm
-                         text-indigo-400 hover:text-indigo-300 transition"
-            >
-              View Project <ArrowRight size={16} />
-            </Link>
-          )}
-        </motion.div>
-      ))}
-    </motion.div>
-  </div>
-</section>
-
-
-      {/* ---------------- ABOUT ---------------- */}
-      <section id="about" className="py-28">
         <motion.div
           variants={container}
           initial="hidden"
@@ -303,55 +277,128 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-  variants={container}
-  className="hidden md:grid gap-6"
->
-  <motion.div
-    variants={fadeUp}
-    {...glowHover}
-    className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
-  >
-    <h4 className="text-lg font-semibold mb-2 text-indigo-400">
-      Full-Stack Expertise
-    </h4>
-    <p className="text-sm text-slate-400 leading-relaxed">
-      Building complete web solutions from responsive user interfaces to secure,
-      scalable backend systems using modern JavaScript technologies.
-    </p>
-  </motion.div>
+            variants={container}
+            className="hidden md:grid gap-6"
+          >
+            <motion.div
+              variants={fadeUp}
+              {...glowHover}
+              className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+            >
+              <h4 className="text-lg font-semibold mb-2 text-indigo-400">
+                Full-Stack Expertise
+              </h4>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Building complete web solutions from responsive user interfaces to secure,
+                scalable backend systems using modern JavaScript technologies.
+              </p>
+            </motion.div>
 
-  <motion.div
-    variants={fadeUp}
-    {...glowHover}
-    className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
-  >
-    <h4 className="text-lg font-semibold mb-2 text-indigo-400">
-      Real-World Project Experience
-    </h4>
-    <p className="text-sm text-slate-400 leading-relaxed">
-      Hands-on experience delivering production-ready applications with
-      performance optimization, authentication, and clean architecture.
-    </p>
-  </motion.div>
+            <motion.div
+              variants={fadeUp}
+              {...glowHover}
+              className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+            >
+              <h4 className="text-lg font-semibold mb-2 text-indigo-400">
+                Real-World Project Experience
+              </h4>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Hands-on experience delivering production-ready applications with
+                performance optimization, authentication, and clean architecture.
+              </p>
+            </motion.div>
 
-  <motion.div
-    variants={fadeUp}
-    {...glowHover}
-    className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
-  >
-    <h4 className="text-lg font-semibold mb-2 text-indigo-400">
-      Growth & Learning Mindset
-    </h4>
-    <p className="text-sm text-slate-400 leading-relaxed">
-      Continuously exploring new frameworks, tools, and best practices to build
-      future-ready digital products.
-    </p>
-  </motion.div>
-</motion.div>
+            <motion.div
+              variants={fadeUp}
+              {...glowHover}
+              className="p-6 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+            >
+              <h4 className="text-lg font-semibold mb-2 text-indigo-400">
+                Growth & Learning Mindset
+              </h4>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Continuously exploring new frameworks, tools, and best practices to build
+                future-ready digital products.
+              </p>
+            </motion.div>
+          </motion.div>
 
         </motion.div>
       </section>
 
+      {/* SKILLS with FIXED RAIN */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {drops.map((drop, i) => (
+            <span
+              key={i}
+              className="rain-drop"
+              style={{
+                left: drop.left,
+                animationDelay: drop.delay,
+                animationDuration: drop.duration,
+              }}
+            />
+          ))}
+        </div>
+
+        <motion.div
+          variants={containerskill}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="relative z-10 max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8"
+        >
+          {skillsData.map((cat) => (
+            <motion.div
+              key={cat.title}
+              variants={fadeUpskill}
+              {...glowHoverskill}
+              className="p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10"
+            >
+              <div className="text-5xl mb-4">{cat.icon}</div>
+              <h3 className="text-xl font-bold mb-4 text-white">{cat.title}</h3>
+              <ul className="space-y-2 text-sm text-slate-300">
+                {cat.skills.map((skill) => (
+                  <li key={skill}>• {skill}</li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* PROJECTS */}
+      <section id="projects" className="py-28 bg-black/30">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                variants={slideVariant(index % 2 === 0 ? 'left' : 'right')}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                className="group p-8 rounded-2xl bg-white/5 backdrop-blur border border-white/10 hover:border-indigo-500/40 transition-all duration-500 hover:scale-[1.03]"
+              >
+                <h3 className="text-2xl font-semibold mb-4 text-white group-hover:text-indigo-400 transition">
+                  {project.title}
+                </h3>
+                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="px-3 py-1 text-xs bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* ---------------- CONTACT ---------------- */}
       <section
         id="contact"
@@ -366,16 +413,16 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* ---------------- FOOTER ---------------- */}
+      {/* FOOTER */}
       <footer className="border-t border-white/10 py-10 text-center text-sm text-slate-400">
         <div className="flex justify-center gap-6 mb-4">
-          <a href="#" aria-label="GitHub"><Github size={18} /></a>
-          <a href="#" aria-label="LinkedIn"><Linkedin size={18} /></a>
-          <a href="mailto:anwarsmailid@gmail.com" aria-label="Email"><Mail size={18} /></a>
+          <a href="https://github.com/anwaargajdhar"><Github size={18} /></a>
+          <a href="https://www.linkedin.com/in/anwaar-gajdhar-anwaar-gajdhar-234bb5233/"><Linkedin size={18} /></a>
+          <a href="mailto:anwarsmailid@gmail.com"><Mail size={18} /></a>
         </div>
         © 2026 Anwaar Gajdhar. All rights reserved.
       </footer>
+
     </main>
   )
 }
-

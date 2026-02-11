@@ -156,7 +156,7 @@ export default function About() {
       <footer className="border-t border-white/10 py-10 text-center text-sm text-slate-400">
         <div className="flex justify-center gap-6 mb-4">
           <a href="https://github.com/anwaargajdhar" aria-label="GitHub"><Github size={18} /></a>
-          <a href="https://www.linkedin.com/posts/viriminfotech_hiringfreshers-joinourteam-2026passout-activity-7424039654674501633-DUNc?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAADpgUggBV0i7MTW46c7cIrcluYZxxl3KjRk&utm_campaign=whatsapp" aria-label="LinkedIn"><Linkedin size={18} /></a>
+          <a href="https://www.linkedin.com/in/anwaar-gajdhar-anwaar-gajdhar-234bb5233/" aria-label="LinkedIn"><Linkedin size={18} /></a>
           <a href="mailto:anwarsmailid@gmail.com" aria-label="Email"><Mail size={18} /></a>
         </div>
         © 2026 Anwaar Gajdhar. All rights reserved.

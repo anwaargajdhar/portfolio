@@ -567,7 +567,7 @@ export default function Contact() {
       <footer className="border-t border-white/10 py-10 text-center text-sm text-slate-400">
         <div className="flex justify-center gap-6 mb-4">
           <a href="https://github.com/anwaargajdhar"><Github size={18} /></a>
-          <a href="https://linkedin.com"><Linkedin size={18} /></a>
+          <a href="https://www.linkedin.com/in/anwaar-gajdhar-anwaar-gajdhar-234bb5233/"><Linkedin size={18} /></a>
           <a href="mailto:anwarsmailid@gmail.com"><Mail size={18} /></a>
         </div>
         © 2026 Anwaar Gajdhar. All rights reserved.
