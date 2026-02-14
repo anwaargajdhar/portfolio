@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, type Variants } from 'framer-motion'
+import { motion, type Variants,AnimatePresence  } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, ArrowRight, Github, Linkedin, Mail } from 'lucide-react'
@@ -55,14 +55,53 @@ const glowHoverskill = {
 const slideVariant = (direction: 'left' | 'right'): Variants => ({
   hidden: {
     opacity: 0,
-    x: direction === 'left' ? -100 : 100,
+    x: direction === 'left' ? -130 : 130,
   },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 1, ease: 'easeOut' },
+    transition: { duration: 0.5, ease: 'easeOut' },
   },
 })
+
+/*   hero aniamtion ai ---*/
+
+const fromTop: Variants  = {
+  hidden: { opacity: 0, y: -60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+}
+
+const fromBottom: Variants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, delay: 0.2, ease: "easeOut" },
+  },
+}
+
+const fromLeft: Variants = {
+  hidden: { opacity: 0, x: -80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, delay: 0.4, ease: "easeOut" },
+  },
+}
+
+const fromRight: Variants = {
+  hidden: { opacity: 0, x: 80 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, delay: 0.4, ease: "easeOut" },
+  },
+}
+
 
 /* ---------------- Page ---------------- */
 
@@ -137,54 +176,132 @@ export default function Home() {
     <main className="min-h-screen bg-[#0b0f19] text-slate-200">
 
       {/* NAV */}
-      <nav className="sticky top-0 z-50 bg-black/40 backdrop-blur border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <span className="text-2xl font-bold text-indigo-400">
-            Anwaar<span className="text-slate-200">.dev</span>
-          </span>
-          <div className="hidden md:flex gap-8">
-            {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="hover:text-indigo-400 transition">
-                {link.name}
-              </a>
-            ))}
-          </div>
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden">
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </button>
+     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-black/60 border-b border-white/10 shadow-lg">
+  <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    {/* Logo */}
+    <motion.span
+      whileHover={{ scale: 1.05 }}
+      className="text-2xl font-bold tracking-wide cursor-pointer"
+    >
+      <span className="text-indigo-400">Anwaar</span>
+      <span className="text-slate-200">.dev</span>
+    </motion.span>
+
+    {/* Desktop Menu */}
+    <div className="hidden md:flex items-center gap-10 text-sm font-medium">
+      {navLinks.map((link) => (
+        <motion.a
+          key={link.name}
+          href={link.href}
+          whileHover={{ y: -2 }}
+          className="relative text-slate-300 hover:text-white transition-colors duration-300 group"
+        >
+          {link.name}
+          <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-indigo-400 transition-all duration-300 group-hover:w-full" />
+        </motion.a>
+      ))}
+    </div>
+
+    {/* Mobile Button */}
+    <motion.button
+      whileTap={{ scale: 0.9 }}
+      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      className="md:hidden text-slate-200"
+    >
+      {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+    </motion.button>
+  </div>
+
+  {/* Mobile Menu */}
+  <AnimatePresence>
+    {mobileMenuOpen && (
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3 }}
+        className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10"
+      >
+        <div className="flex flex-col items-center py-6 gap-6 text-slate-300">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="hover:text-indigo-400 transition"
+            >
+              {link.name}
+            </a>
+          ))}
         </div>
-      </nav>
+      </motion.div>
+    )}
+  </AnimatePresence>
+</nav>
+
 
       {/* HERO */}
       <section className="pt-32 pb-40 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#6366f130,transparent_70%)]" />
+
         <motion.div
-          variants={container}
           initial="hidden"
           animate="visible"
           className="relative max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
         >
-          <motion.div variants={fadeUp} className="space-y-6">
-            <span className="inline-block px-4 py-1 bg-indigo-500/10 text-indigo-400 rounded-full text-sm border border-indigo-500/20">
+          <div className="space-y-6">
+
+            {/* Badge */}
+            <motion.span
+              variants={fromTop}
+              className="inline-block px-4 py-1 bg-indigo-500/10 text-indigo-400 rounded-full text-sm border border-indigo-500/20"
+            >
               🚀 Full-Stack MERN Developer
-            </span>
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+            </motion.span>
+
+            {/* Heading from TOP */}
+            <motion.h1
+              variants={fromTop}
+              className="text-5xl md:text-6xl font-bold leading-tight"
+            >
               Hi, I’m <span className="text-indigo-400">Anwaar Gajdhar</span>
-            </h1>
-            <p className="text-slate-400 text-lg max-w-xl">
+            </motion.h1>
+
+            {/* Paragraph from BOTTOM */}
+            <motion.p
+              variants={fromBottom}
+              className="text-slate-400 text-lg max-w-xl"
+            >
               I design and build scalable, secure, and high-performance web applications
               using React, Next.js, Node.js, and MongoDB.
-            </p>
+            </motion.p>
+
+            {/* Buttons */}
             <div className="flex gap-4">
-              <a href="#projects" className="px-6 py-3 bg-indigo-500 text-white rounded-lg font-semibold shadow-lg shadow-indigo-500/30">
+              <motion.a
+                variants={fromLeft}
+                href="#projects"
+                className="px-6 py-3 bg-indigo-500 text-white rounded-lg font-semibold shadow-lg shadow-indigo-500/30"
+              >
                 View Work
-              </a>
-              <a href="/resume.pdf" download className="px-6 py-3 border border-indigo-400 text-indigo-400 rounded-lg font-semibold hover:bg-indigo-500/10 transition">
+              </motion.a>
+
+              <motion.a
+                variants={fromRight}
+                href="/resume.pdf"
+                download
+                className="px-6 py-3 border border-indigo-400 text-indigo-400 rounded-lg font-semibold hover:bg-indigo-500/10 transition"
+              >
                 Resume
-              </a>
+              </motion.a>
             </div>
-          </motion.div>
-          <motion.div variants={fadeUp} className="hidden md:flex justify-center">
+          </div>
+
+          <motion.div
+            variants={fromBottom}
+            className="hidden md:flex justify-center"
+          >
             <Image
               src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif"
               alt="Developer"
@@ -196,6 +313,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
       </section>
+
 
       {/* ---------------- about ---------------- */}
 
