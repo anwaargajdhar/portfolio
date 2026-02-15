@@ -8,20 +8,47 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  type Variants,
 } from 'framer-motion'
 
+/* ---------------- Types ---------------- */
+
+interface Project {
+  id: number
+  title: string
+  description: string
+  longDescription: string
+  technologies: string[]
+  image: string
+  liveUrl: string
+  highlights: string[]
+}
+
 /* ---------------- Animations ---------------- */
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.85 },
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 60 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: 'easeOut' },
+  },
+}
+
+const scaleIn: Variants = {
+  hidden: { opacity: 0, scale: 0.8 },
   visible: { opacity: 1, scale: 1 },
 }
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: {
+    transition: { staggerChildren: 0.08 },
+  },
 }
 
-/* ---------------- Page ---------------- */
+/* ---------------- Component ---------------- */
+
 export default function ProjectsPage() {
   const { scrollYProgress } = useScroll()
 
@@ -30,9 +57,27 @@ export default function ProjectsPage() {
     damping: 30,
   })
 
-  const yParallax = useTransform(scrollYProgress, [0, 1], [0, -40])
+  const yParallax = useTransform(scrollYProgress, [0, 1], [0, -80])
 
-  const projectsData = [
+
+  const projectReveal: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 100,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.9,
+        ease: [0.16, 1, 0.3, 1], // cinematic smooth easing
+      },
+    },
+  }
+
+  const projectsData: Project[] = [
     {
       id: 1,
       title: 'Shodhavali – Academic Research Platform',
@@ -91,16 +136,22 @@ export default function ProjectsPage() {
       {/* Scroll Progress */}
       <motion.div
         style={{ scaleX }}
-        className="fixed top-0 left-0 right-0 h-[3px] bg-primary origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 origin-left z-50"
       />
 
-      <motion.main className="min-h-screen bg-background text-foreground">
+      <main className="relative min-h-screen bg-black text-white overflow-hidden">
+        {/* Background Glow */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-600/30 blur-[120px] rounded-full" />
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/30 blur-[120px] rounded-full" />
+        </div>
+
         {/* Header */}
-        <nav className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
+        <nav className="sticky top-0 z-40 border-b border-white/10 bg-black/60 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-4 py-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-primary"
+              className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition"
             >
               <ArrowLeft size={18} />
               Back to Home
@@ -109,37 +160,43 @@ export default function ProjectsPage() {
         </nav>
 
         {/* Hero */}
-        <section className="py-28">
-          <div className="max-w-7xl mx-auto px-4">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Our <span className="text-primary">Projects</span>
+        <section className="py-32 text-center">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+          >
+            <h1 className="text-6xl md:text-7xl font-extrabold mb-6 bg-gradient-to-r from-indigo-400 to-purple-500 text-transparent bg-clip-text">
+              My Projects
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl">
-              Production-ready real-world projects.
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+              Production-ready, real-world applications crafted with precision and performance in mind.
             </p>
-          </div>
+          </motion.div>
         </section>
 
         {/* Projects */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 space-y-28">
-            {projectsData.map((project, idx) => (
+        <section className="pb-32">
+          <div className="max-w-7xl mx-auto px-4 space-y-40">
+            {projectsData.map((project: Project, idx: number) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-                className={`grid md:grid-cols-2 gap-14 items-center ${
-                  idx % 2 ? 'md:[&>*:first-child]:order-2' : ''
-                }`}
+                variants={projectReveal}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{
+                  once: true,
+                  amount: 0.3   // triggers when 30% visible
+                }}
+
+                className={`grid md:grid-cols-2 gap-16 items-center ${idx % 2 ? 'md:[&>*:first-child]:order-2' : ''
+                  }`}
               >
-                {/* Image with Hover Overlay */}
                 <motion.div
                   style={{ y: yParallax }}
-                  whileHover={{ scale: 1.04 }}
+                  whileHover={{ scale: 1.05 }}
                   transition={{ type: 'spring', stiffness: 120 }}
-                  className="relative h-80 rounded-2xl overflow-hidden border border-border shadow-lg group"
+                  className="relative h-[420px] rounded-3xl overflow-hidden group"
                 >
                   <Image
                     src={project.image}
@@ -148,33 +205,41 @@ export default function ProjectsPage() {
                     className="object-cover"
                   />
 
-                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80" />
+
                   <a
                     href={project.liveUrl}
                     target="_blank"
-                    className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
                   >
-                    <span className="text-white font-semibold text-lg flex items-center gap-2">
+                    <motion.span
+                      whileHover={{ scale: 1.1 }}
+                      className="px-6 py-3 bg-indigo-500 rounded-full flex items-center gap-2 font-semibold"
+                    >
                       <ExternalLink size={18} />
-                      View Project
-                    </span>
+                      View Live
+                    </motion.span>
                   </a>
                 </motion.div>
 
-                {/* Content */}
                 <div className="space-y-6">
-                  <h2 className="text-3xl font-bold">{project.title}</h2>
-                  <p className="text-muted-foreground">
+                  <h2 className="text-4xl font-bold">
+                    {project.title}
+                  </h2>
+
+                  <p className="text-gray-400">
                     {project.description}
                   </p>
-                  <p className="text-muted-foreground">
+
+                  <p className="text-gray-500">
                     {project.longDescription}
                   </p>
 
-                  <ul className="grid grid-cols-2 gap-2">
-                    {project.highlights.map((h) => (
-                      <li key={h} className="flex gap-2">
-                        <span className="text-primary">✓</span>
+                  <ul className="grid grid-cols-2 gap-3 text-sm">
+                    {project.highlights.map((h: string) => (
+                      <li key={h} className="flex gap-2 text-gray-300">
+                        <span className="text-indigo-400">✓</span>
                         {h}
                       </li>
                     ))}
@@ -184,13 +249,13 @@ export default function ProjectsPage() {
                     variants={stagger}
                     initial="hidden"
                     whileInView="visible"
-                    className="flex flex-wrap gap-2"
+                    className="flex flex-wrap gap-3 pt-2"
                   >
-                    {project.technologies.map((tech) => (
+                    {project.technologies.map((tech: string) => (
                       <motion.span
                         key={tech}
                         variants={scaleIn}
-                        className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                        className="px-4 py-1.5 text-xs rounded-full bg-white/10 border border-white/10 backdrop-blur text-indigo-300"
                       >
                         {tech}
                       </motion.span>
@@ -202,11 +267,10 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        <footer className="border-t border-border py-10 text-center text-sm text-muted-foreground">
-          © 2026 Anwaar Gajdhar. MERN Stack Developer. All rights reserved.
-
+        <footer className="border-t border-white/10 py-10 text-center text-sm text-gray-500">
+          © 2026 Anwaar Gajdhar. MERN Stack Developer.
         </footer>
-      </motion.main>
+      </main>
     </>
   )
 }
