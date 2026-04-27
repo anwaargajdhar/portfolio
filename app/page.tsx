@@ -257,7 +257,7 @@ export default function Home() {
               variants={fromTop}
               className="inline-block px-4 py-1 bg-indigo-500/10 text-indigo-400 rounded-full text-sm border border-indigo-500/20"
             >
-              🚀 Full-Stack MERN Developer labercaty 
+              🚀 Full-Stack MERN Developer 
             </motion.span>
 
             {/* Heading from TOP */}
